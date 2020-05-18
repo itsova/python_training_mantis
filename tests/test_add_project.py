@@ -2,7 +2,8 @@
 
 
 def test_add_project(app):
-    old_count = len(app.project.get_project())
+    app.session.login("administrator", "root")
+    old_count = len(app.soap.project_lists("administrator", "root"))
     app.project.create()
-    new_count = len(app.project.get_project())
+    new_count = len(app.soap.project_lists("administrator", "root"))
     assert old_count + 1 == new_count
